@@ -41,9 +41,7 @@ class TestPlaylistTransfer:
         assert result is True
         assert mock_destination_service.created_playlists[0].name == "Custom Name"
 
-    def test_source_authentication_failure(
-        self, mock_destination_service, capsys
-    ):
+    def test_source_authentication_failure(self, mock_destination_service, capsys):
         """Test handling of source authentication failure"""
         failing_source = MockMusicService(name="source", should_fail=True)
         transfer = PlaylistTransfer(failing_source, mock_destination_service)
@@ -54,9 +52,7 @@ class TestPlaylistTransfer:
         captured = capsys.readouterr()
         assert "Failed to authenticate with source service" in captured.out
 
-    def test_destination_authentication_failure(
-        self, mock_source_service, capsys
-    ):
+    def test_destination_authentication_failure(self, mock_source_service, capsys):
         """Test handling of destination authentication failure"""
         failing_destination = MockMusicService(name="destination", should_fail=True)
         transfer = PlaylistTransfer(mock_source_service, failing_destination)
@@ -69,13 +65,14 @@ class TestPlaylistTransfer:
 
     def test_get_playlist_failure(self, mock_destination_service, capsys):
         """Test handling of playlist retrieval failure"""
+
         # Create a source that will fail on get_playlist
         class FailingSource(MockMusicService):
             def get_playlist(self, playlist_id: str) -> Playlist:
                 if not self.authenticated:
                     raise RuntimeError("Not authenticated")
                 raise RuntimeError("Failed to get playlist")
-        
+
         failing_source = FailingSource(name="source")
         transfer = PlaylistTransfer(failing_source, mock_destination_service)
 
@@ -87,13 +84,16 @@ class TestPlaylistTransfer:
 
     def test_create_playlist_failure(self, mock_source_service, capsys):
         """Test handling of playlist creation failure"""
+
         # Create a destination that will fail on create_playlist
         class FailingDestination(MockMusicService):
-            def create_playlist(self, name: str, description=None, public=False) -> Playlist:
+            def create_playlist(
+                self, name: str, description=None, public=False
+            ) -> Playlist:
                 if not self.authenticated:
                     raise RuntimeError("Not authenticated")
                 raise RuntimeError("Failed to create playlist")
-        
+
         failing_destination = FailingDestination(name="destination")
         transfer = PlaylistTransfer(mock_source_service, failing_destination)
 
@@ -137,15 +137,11 @@ class TestPlaylistTransfer:
         self, mock_source_service, mock_destination_service
     ):
         """Test that detail log file is created correctly"""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".csv", delete=False
-        ) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as tmp:
             log_file = tmp.name
 
         try:
-            transfer = PlaylistTransfer(
-                mock_source_service, mock_destination_service
-            )
+            transfer = PlaylistTransfer(mock_source_service, mock_destination_service)
             result = transfer.transfer("test_playlist_123", detail_log_file=log_file)
 
             assert result is True
@@ -189,15 +185,11 @@ class TestPlaylistTransfer:
             "Test Artist 2_Test Song 2 (feat. Guest)"
         ] = None
 
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".csv", delete=False
-        ) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".csv", delete=False) as tmp:
             log_file = tmp.name
 
         try:
-            transfer = PlaylistTransfer(
-                mock_source_service, mock_destination_service
-            )
+            transfer = PlaylistTransfer(mock_source_service, mock_destination_service)
             result = transfer.transfer("test_playlist_123", detail_log_file=log_file)
 
             assert result is True
@@ -219,9 +211,7 @@ class TestPlaylistTransfer:
         with tempfile.TemporaryDirectory() as tmpdir:
             log_file = Path(tmpdir) / "subdir1" / "subdir2" / "transfer.csv"
 
-            transfer = PlaylistTransfer(
-                mock_source_service, mock_destination_service
-            )
+            transfer = PlaylistTransfer(mock_source_service, mock_destination_service)
             result = transfer.transfer(
                 "test_playlist_123", detail_log_file=str(log_file)
             )

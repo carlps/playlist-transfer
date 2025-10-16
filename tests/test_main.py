@@ -20,9 +20,7 @@ class TestConfigLoading:
 
     def test_load_config_from_specified_path(self):
         """Test loading config from a specified path"""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tmp:
             config_data = {"spotify": {"client_id": "test_id"}}
             json.dump(config_data, tmp)
             tmp.flush()
@@ -65,9 +63,7 @@ class TestConfigLoading:
 
     def test_load_config_invalid_json(self, capsys):
         """Test handling of invalid JSON in config file"""
-        with tempfile.NamedTemporaryFile(
-            mode="w", suffix=".json", delete=False
-        ) as tmp:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as tmp:
             tmp.write("{invalid json")
             tmp.flush()
             config_path = tmp.name

@@ -32,9 +32,7 @@ class TestTrack:
 
     def test_title_no_feature_with_feat(self):
         """Test removal of 'feat.' from track title"""
-        track = Track(
-            title="Song Name (feat. Guest Artist)", artist="Main Artist"
-        )
+        track = Track(title="Song Name (feat. Guest Artist)", artist="Main Artist")
         assert track.title_no_feature == "Song Name"
 
     def test_title_no_feature_with_ft(self):
@@ -44,9 +42,7 @@ class TestTrack:
 
     def test_title_no_feature_with_featuring(self):
         """Test removal of 'featuring' from track title"""
-        track = Track(
-            title="Song Name (featuring Someone)", artist="Main Artist"
-        )
+        track = Track(title="Song Name (featuring Someone)", artist="Main Artist")
         assert track.title_no_feature == "Song Name"
 
     def test_title_no_feature_with_with(self):
@@ -98,17 +94,13 @@ class TestPlaylist:
 
     def test_private_playlist_string(self):
         """Test string representation for private playlist"""
-        playlist = Playlist(
-            name="Private", description=None, tracks=[], public=False
-        )
+        playlist = Playlist(name="Private", description=None, tracks=[], public=False)
         result = str(playlist)
         assert "private" in result
 
     def test_empty_playlist(self):
         """Test playlist with no tracks"""
-        playlist = Playlist(
-            name="Empty", description=None, tracks=[], public=False
-        )
+        playlist = Playlist(name="Empty", description=None, tracks=[], public=False)
         assert len(playlist.tracks) == 0
         assert "0 tracks" in str(playlist)
 
