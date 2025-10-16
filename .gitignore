@@ -1,0 +1,46 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Python
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.so
+
+# Secrets - NEVER COMMIT!
+.env
+.env.local
+
+# Config files with secrets (if you accidentally put them there)
+config.json
+
+# Logs
+logs/
+*.log
+*.csv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.mypy_cache/
+.tox/
+
+# Spotify cache
+.cache

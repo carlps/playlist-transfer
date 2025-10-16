@@ -1,0 +1,10 @@
+{
+  "defaults": {
+    "detail_log_file": "logs/transfer_{datetime}.csv",
+    "playlist_name_template": "{playlist_id} (transferred)"
+  },
+  "spotify": {
+    "": "Note: Put actual credentials in .env file, not here!"
+  },
+  "tidal": {}
+}
