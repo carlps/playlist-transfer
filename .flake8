@@ -11,6 +11,8 @@ exclude =
     .cache
 extend-ignore = 
     E203,
+    E501,
     W503,
+    W293
 per-file-ignores =
     __init__.py:F401

@@ -10,7 +10,7 @@ class SpotifyService(MusicService):
     def __init__(self, client_id: str, client_secret: str):
         self.client_id = client_id
         self.client_secret = client_secret
-        self.sp = None
+        self.sp: spotipy.Spotify | None = None
 
     def authenticate(self) -> bool:
         """Authenticate with Spotify API"""
@@ -30,7 +30,8 @@ class SpotifyService(MusicService):
             self.sp = spotipy.Spotify(auth_manager=auth_manager)
 
             # Test authentication
-            self.sp.current_user()
+            if self.sp:
+                self.sp.current_user()
             print("✓ Spotify authentication successful")
             return True
 

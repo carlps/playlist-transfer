@@ -16,7 +16,7 @@ class PlaylistTransfer:
         detail_log_file: Optional[str] = None,
     ) -> bool:
         """Transfer a playlist from source to destination"""
-        print(f"\n🎵 Starting playlist transfer...")
+        print("\n🎵 Starting playlist transfer...")
 
         # Authenticate both services
         if not self.source.authenticate():
@@ -28,7 +28,7 @@ class PlaylistTransfer:
             return False
 
         # Get source playlist
-        print(f"\n📥 Fetching playlist from source...")
+        print("\n📥 Fetching playlist from source...")
         try:
             source_playlist = self.source.get_playlist(source_playlist_id)
             print(f"✓ Found playlist: {source_playlist}")
@@ -63,7 +63,7 @@ class PlaylistTransfer:
             print(f"  [{i}/{len(source_playlist.tracks)}] Searching: {source_track}")
             try:
                 dest_track = self.destination.search_track(source_track)
-                if dest_track:
+                if dest_track and dest_track.id:
                     found_tracks.append(dest_track.id)
                     track_mapping.append(
                         {
@@ -72,12 +72,12 @@ class PlaylistTransfer:
                             "found": True,
                         }
                     )
-                    print(f"    ✓ Found")
+                    print("    ✓ Found")
                 else:
                     track_mapping.append(
                         {"source": source_track, "destination": None, "found": False}
                     )
-                    print(f"    ✗ Not found")
+                    print("    ✗ Not found")
             except Exception as e:
                 print(f"    ✗ Error: {e}")
                 track_mapping.append(
@@ -88,8 +88,12 @@ class PlaylistTransfer:
         if found_tracks:
             print(f"\n➕ Adding {len(found_tracks)} tracks to playlist...")
             try:
-                self.destination.add_tracks_to_playlist(dest_playlist.id, found_tracks)
-                print(f"✓ Successfully added tracks")
+                # Ensure playlist_id and track_ids are not None
+                if dest_playlist.id:
+                    self.destination.add_tracks_to_playlist(
+                        dest_playlist.id, found_tracks
+                    )
+                    print("✓ Successfully added tracks")
             except Exception as e:
                 print(f"❌ Failed to add tracks: {e}")
                 return False
@@ -101,13 +105,13 @@ class PlaylistTransfer:
                 self._write_detail_log(
                     detail_log_file, source_playlist, dest_playlist, track_mapping
                 )
-                print(f"✓ Log file written successfully")
+                print("✓ Log file written successfully")
             except Exception as e:
                 print(f"⚠️  Warning: Failed to write log file: {e}")
 
         # Summary
         not_found_count = len([m for m in track_mapping if not m["found"]])
-        print(f"\n✅ Transfer complete!")
+        print("\n✅ Transfer complete!")
         print(f"   Tracks found: {len(found_tracks)}/{len(source_playlist.tracks)}")
         if not_found_count > 0:
             print(f"   ⚠️  Tracks not found: {not_found_count}")

@@ -1,12 +1,8 @@
-"""
-Tests for CLI main.py functionality
-"""
+"""Tests for CLI main.py functionality"""
 
-import pytest
 import json
 import tempfile
 from pathlib import Path
-from unittest.mock import patch, MagicMock
 from playlist_transfer.main import (
     load_config,
     load_env_file,

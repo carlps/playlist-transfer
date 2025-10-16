@@ -198,7 +198,7 @@ Examples:
         sys.exit(1)
 
     # Initialize services
-    print(f"\n🔧 Initializing services...")
+    print("\n🔧 Initializing services...")
     services = {}
 
     if args.source == "spotify" or args.destination == "spotify":

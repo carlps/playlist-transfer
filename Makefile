@@ -36,7 +36,7 @@ format-check:
 	black --check playlist_transfer tests
 
 type-check:
-	mypy playlist_transfer --ignore-missing-imports
+	mypy playlist_transfer
 
 clean:
 	rm -rf .pytest_cache

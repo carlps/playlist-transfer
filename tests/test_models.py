@@ -1,8 +1,5 @@
-"""
-Tests for data models (Track and Playlist)
-"""
+"""Tests for data models (Track and Playlist)"""
 
-import pytest
 from playlist_transfer.models import Track, Playlist
 
 

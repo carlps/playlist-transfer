@@ -14,7 +14,7 @@ class TidalService(MusicService):
             token_type: Either "oauth" for interactive login or "token" for existing token
         """
         self.token_type = token_type
-        self.session = None
+        self.session: tidalapi.Session | None = None
 
     def authenticate(self) -> bool:
         """Authenticate with Tidal API"""
@@ -27,16 +27,17 @@ class TidalService(MusicService):
             if self.token_type == "oauth":
                 # Interactive OAuth login
                 print("Please visit the URL and authorize the application...")
-                self.session.login_oauth_simple()
+                if self.session:
+                    self.session.login_oauth_simple()
             else:
                 # Load existing session (if previously authenticated)
                 # The session is automatically saved to ~/.config/tidal-api/session.json
-                if not self.session.load_oauth_session():
+                if self.session and not self.session.load_oauth_session():  # type: ignore
                     print("No saved session found. Starting OAuth flow...")
                     self.session.login_oauth_simple()
 
             # Verify authentication
-            if self.session.check_login():
+            if self.session and self.session.check_login():
                 print("✓ Tidal authentication successful")
                 return True
             else:
@@ -121,7 +122,7 @@ class TidalService(MusicService):
         try:
             # Strategy 1: Search by artist and cleaned track name, prioritize ISRC match
             query = f"{track.artist} {track.title_no_feature}"
-            print(f"    🔄 Searching by artist and track name with ISRC matching...")
+            print("    🔄 Searching by artist and track name with ISRC matching...")
             search_results = self.session.search(
                 query, models=[tidalapi.media.Track], limit=10
             )
@@ -160,7 +161,7 @@ class TidalService(MusicService):
 
             # Strategy 2: Search by cleaned track name only, max limit
             if track.isrc:
-                print(f"    🔄 Searching by track name only with ISRC matching...")
+                print("    🔄 Searching by track name only with ISRC matching...")
                 query = track.title_no_feature
                 # Get maximum results and handle pagination
                 search_results = self.session.search(
@@ -193,7 +194,7 @@ class TidalService(MusicService):
 
             # Strategy 3: Fall back to first search results, match by artist and title
             if first_search_results:
-                print(f"    🔄 Matching by artist and title from first search...")
+                print("    🔄 Matching by artist and title from first search...")
                 for result in first_search_results:
                     if result.artist:
                         result_artist = result.artist.name.lower()
@@ -271,7 +272,8 @@ class TidalService(MusicService):
             # Playlists are private by default
             if public:
                 print(
-                    "    Note: Tidal API doesn't support setting playlist visibility. Playlist will be private."
+                    "    Note: Tidal API doesn't support setting "
+                    "playlist visibility. Playlist will be private."
                 )
 
             return Playlist(

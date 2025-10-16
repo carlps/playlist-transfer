@@ -1,13 +1,10 @@
-"""
-Tests for PlaylistTransfer class
-"""
+"""Tests for PlaylistTransfer class"""
 
-import pytest
 import tempfile
 import csv
 from pathlib import Path
 from playlist_transfer.playlist_transfer import PlaylistTransfer
-from playlist_transfer.models import Track, Playlist
+from playlist_transfer.models import Playlist
 from tests.conftest import MockMusicService
 
 

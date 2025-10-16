@@ -56,7 +56,7 @@ jobs:
 
     - name: Type check with mypy
       run: |
-        mypy playlist_transfer --ignore-missing-imports
+        mypy playlist_transfer
       continue-on-error: true  # Don't fail CI on mypy errors initially
 
     - name: Run tests with pytest
