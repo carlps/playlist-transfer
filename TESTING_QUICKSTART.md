@@ -94,7 +94,7 @@ flake8 playlist_transfer tests
 ## What Gets Tested in CI?
 
 Every push and PR runs:
-- ✅ Tests on Python 3.8, 3.9, 3.10, 3.11, 3.12
+- ✅ Tests on Python 3.9, 3.10, 3.11, 3.12
 - ✅ Tests on Ubuntu, macOS, Windows
 - ✅ Code formatting check
 - ✅ Linting

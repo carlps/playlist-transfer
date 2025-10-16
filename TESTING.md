@@ -22,10 +22,10 @@ make ci
 
 ### 1. Development Environment Setup
 
-First, make sure you have Python 3.8+ installed:
+First, make sure you have Python 3.9+ installed:
 
 ```bash
-python --version  # Should be 3.8 or higher
+python --version  # Should be 3.9 or higher
 ```
 
 Install the package with development dependencies:
@@ -223,7 +223,7 @@ The project uses GitHub Actions for CI. Tests run automatically on:
 
 - Every push to `main` or `develop`
 - Every pull request
-- Multiple Python versions (3.8, 3.9, 3.10, 3.11, 3.12)
+- Multiple Python versions (3.9, 3.10, 3.11, 3.12)
 - Multiple OSes (Ubuntu, macOS, Windows)
 
 View the workflow in `.github/workflows/ci.yml`.

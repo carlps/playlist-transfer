@@ -97,7 +97,7 @@ make help          # Show all available commands
 ## 📊 CI/CD
 
 Your code will be automatically tested on every push and PR:
-- ✅ Python 3.8, 3.9, 3.10, 3.11, 3.12
+- ✅ Python 3.9, 3.10, 3.11, 3.12
 - ✅ Ubuntu, macOS, Windows
 - ✅ Code formatting, linting, type checking
 - ✅ Full test suite with coverage

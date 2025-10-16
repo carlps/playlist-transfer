@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "playlist-transfer"
 version = "0.1.0"
 description = "Transfer playlists between music streaming platforms"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 dependencies = [
     "spotipy>=2.23.0",
     "tidalapi>=0.7.0",

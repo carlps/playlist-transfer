@@ -16,7 +16,7 @@ echo "   Found Python $python_version"
 
 # Check if Python version is >= 3.8
 if ! python -c "import sys; assert sys.version_info >= (3, 8)" 2>/dev/null; then
-    echo "   ❌ Python 3.8+ required. Please upgrade Python."
+    echo "   ❌ Python 3.9+ required. Please upgrade Python."
     exit 1
 fi
 echo "   ✅ Python version OK"

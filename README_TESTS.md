@@ -11,7 +11,7 @@ Hey! I've set up a comprehensive automated test suite for your playlist-transfer
 
 ### 🤖 Full CI/CD Pipeline
 - Runs on every push and PR
-- Tests on Python 3.8-3.12
+- Tests on Python 3.9-3.12
 - Tests on Ubuntu, macOS, Windows
 - Auto-uploads coverage reports
 
